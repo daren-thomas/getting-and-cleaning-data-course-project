@@ -14,6 +14,8 @@ output_avg_file <- "./uci_har_dataset_averages.csv"
 ## libraries used
 library(dplyr)
 
+## Objective 1: Merge the training and the test sets to create one data set
+
 ## read in all the data sets
 
 training_set <- read.table(training_set_file, sep="")
@@ -27,7 +29,7 @@ subject_test <- read.table(subject_test_file, sep="")
 subject_train <- read.table(subject_train_file, sep="")
 activity_lables <- read.table(activity_lables_file, sep="")
 
-## tidy the feature column names
+## feature column names
 col_names <- features[, 2]
 
 
@@ -43,23 +45,29 @@ names(training_set)[1:2] <- c("subject", "activity")  # add the subject and acti
 
 merged_set <- rbind(test_set, training_set)
 
-## look up the activity label
+
+## Objective 2: extract only the measurements on the mean and standard deviation for each measurement
+# NOTE: need to offset col_names indexes because I added the two columns to the beginning of names(merged_set)
+COL_OFFSET <- 2
+merged_set <- merged_set[, c(1, 2, grep("-(mean|std)\\(\\)$", col_names) + COL_OFFSET)]  
+
+
+## Objective 3: Use descriptive activity names to name the activites in the data set
 merged_set$activity <- activity_lables[, 2][merged_set$activity]
 
-## extract only the measurements on the mean and standard deviation for each measurement
-merged_set <- merged_set[, c(1, 2, grep("-(mean|std)\\(\\)$", col_names)+2)]  # NOTE: need to offset col_names indexes because I added two columns
-
+## Objective 4: lable the data set with descriptive variable names (following tidy data set rules)
 ## tidy up the col_names
 col_names <- names(merged_set)
-col_names <- gsub("[-,]", ".", col_names)
-col_names <- gsub("[()]", "", col_names)
-col_names <- gsub("^t([A-Z])", "time\\1", col_names)
-col_names <- gsub("^f([A-Z])", "frequency\\1", col_names)
+col_names <- gsub("[-,]", ".", col_names)                  # replace "bad" characters with periods
+col_names <- gsub("[()]", "", col_names)                   # remove parenthesis in variable names
+col_names <- gsub("^t([A-Z])", "time\\1", col_names)       # rename variables that start in "t*" to "time*"
+col_names <- gsub("^f([A-Z])", "frequency\\1", col_names)  # rename variables that start in "f*" to "frequency*"
 names(merged_set) <- col_names
 
 ## save data to output file
-write.csv(merged_set, file=output_file)
+write.csv(merged_set, file=output_file, row.names=FALSE)
 
-## create a second, independent tidy data set with the average of each variable for each activity and each subject
+## Objective 5: create a second, independent tidy data set with the average of each variable for each activity and each subject
 merged_avg <- tbl_df(merged_set) %>% group_by(subject, activity) %>% summarize_each(funs(mean))
-write.csv(merged_tbl, file=output_avg_file)
+colnames(merged_avg)[]
+write.csv(merged_tbl, file=output_avg_file, row.names=FALSE)
