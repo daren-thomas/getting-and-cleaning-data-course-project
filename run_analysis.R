@@ -8,6 +8,8 @@ subject_test_file <- "./UCI HAR Dataset/test/subject_test.txt"
 subject_train_file <- "./UCI HAR Dataset/train/subject_train.txt"
 activity_lables_file <- "./UCI HAR Dataset/activity_labels.txt"
 
+output_file <- "./data.csv"
+
 ## libraries used
 library(dplyr)
 
@@ -47,5 +49,12 @@ merged_set$activity <- activity_lables[, 2][merged_set$activity]
 merged_set <- merged_set[, c(1, 2, grep("-(mean|std)\\(\\)$", col_names)+2)]  # NOTE: need to offset col_names indexes because I added two columns
 
 ## tidy up the col_names
-#col_names <- gsub("[-,]", "_", col_names)
-#col_names <- gsub("[()]", "", col_names)
+col_names <- names(merged_set)
+col_names <- gsub("[-,]", ".", col_names)
+col_names <- gsub("[()]", "", col_names)
+col_names <- gsub("^t([A-Z])", "time\\1", col_names)
+col_names <- gsub("^f([A-Z])", "frequency\\1", col_names)
+names(merged_set) <- col_names
+
+## save data to output file
+write.csv(merged_set, file=output_file)
