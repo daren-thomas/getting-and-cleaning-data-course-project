@@ -8,8 +8,8 @@ subject_test_file <- "./UCI HAR Dataset/test/subject_test.txt"
 subject_train_file <- "./UCI HAR Dataset/train/subject_train.txt"
 activity_lables_file <- "./UCI HAR Dataset/activity_labels.txt"
 
-output_file <- "./uci_har_dataset.csv"
-output_avg_file <- "./uci_har_dataset_averages.csv"
+output_file <- "./uci_har_dataset.txt"
+output_avg_file <- "./uci_har_dataset_averages.txt"
 
 ## libraries used
 library(dplyr)
@@ -65,9 +65,9 @@ col_names <- gsub("^f([A-Z])", "frequency\\1", col_names)  # rename variables th
 names(merged_set) <- col_names
 
 ## save data to output file
-write.csv(merged_set, file=output_file, row.names=FALSE)
+write.table(merged_set, file=output_file, row.names=FALSE)
 
 ## Objective 5: create a second, independent tidy data set with the average of each variable for each activity and each subject
 merged_avg <- tbl_df(merged_set) %>% group_by(subject, activity) %>% summarize_each(funs(mean))
 colnames(merged_avg)[]
-write.csv(merged_tbl, file=output_avg_file, row.names=FALSE)
+write.table(merged_tbl, file=output_avg_file, row.names=FALSE)

@@ -4,8 +4,8 @@ This repository contains two tidy data sets derived from the raw data by means o
 
 The two tidy data sets are called:
 
-- `uci_har_dataset.csv`
-- `uci_har_dataset_averages.csv`
+- `uci_har_dataset.txt`
+- `uci_har_dataset_averages.txt`
 
 The raw data is located in:
 
@@ -16,7 +16,7 @@ The raw data is located in:
 The raw data set folder contains its own documentation. Please check `UCI HAR Dataset/README.txt` for more information on the raw data.
 
 
-## uci_har_dataset.csv
+## uci_har_dataset.txt
 
 The first tidy data set is a result of merging the test data set and the training data set.
 
@@ -50,12 +50,12 @@ This file contains the following variables:
 - "frequencyBodyBodyGyroJerkMag.std": corresponds to `fBodyBodyGyroJerkMag-std()` in the raw data
 
 
-The data contained in the `uci_har_dataset.csv` contains the data from the test
+The data contained in the `uci_har_dataset.txt` contains the data from the test
 data set and the training data set in the raw data folder. Check the file `UCI
 HAR Dataset/features_info.txt` for more information on the variables.
 
-## uci_har_dataset_averages.csv
+## uci_har_dataset_averages.txt
 
-The second tidy data set is a result of processing the first (`uci_har_dataset.csv`) tidy data set. It is stored in a file called `uci_har_dataset_averages.csv`.
+The second tidy data set is a result of processing the first (`uci_har_dataset.txt`) tidy data set. It is stored in a file called `uci_har_dataset_averages.txt`.
 
-This file contains the same variables as `uci_har_dataset.csv`, except that each variable is an average per subject and activity of the data in `uci_har_dataset.csv`.
+This file contains the same variables as `uci_har_dataset.txt`, except that each variable is an average per subject and activity of the data in `uci_har_dataset.txt`.

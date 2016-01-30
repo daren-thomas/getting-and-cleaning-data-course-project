@@ -8,8 +8,8 @@ It contains the following files and folders:
 - `CodeBook.md` (a description of the variables, the data, and any transformations or work that I performed to clean up the data)
 - `UCI HAR Dataset/` (a folder containing the original dataset, the raw data)
 - `run_analysis.R` (a script to produce the tidy data from the raw data)
-- `uci_har_dataset.csv` (a tidy version of the raw data as described in the codebook)
-- `uci_har_dataset_averages.csv` (a tidy version of the raw data as described in the codebook, each variable averaged for each activity and each subject)
+- `uci_har_dataset.txt` (a tidy version of the raw data as described in the codebook)
+- `uci_har_dataset_averages.txt` (a tidy version of the raw data as described in the codebook, each variable averaged for each activity and each subject)
 
 ## A note on running the script
 
@@ -25,8 +25,8 @@ The script depends on the package `dplyr`.
 
 Running the script will read in the raw data and (re)produce the two files:
 
-- `uci_har_dataset.csv`
-- `uci_har_dataset_averages.csv`
+- `uci_har_dataset.txt`
+- `uci_har_dataset_averages.txt`
 
 Check the `CodeBook.md` for more information on the contents of these files.
 
