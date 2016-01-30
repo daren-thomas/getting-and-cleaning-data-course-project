@@ -8,7 +8,8 @@ subject_test_file <- "./UCI HAR Dataset/test/subject_test.txt"
 subject_train_file <- "./UCI HAR Dataset/train/subject_train.txt"
 activity_lables_file <- "./UCI HAR Dataset/activity_labels.txt"
 
-output_file <- "./data.csv"
+output_file <- "./uci_har_dataset.csv"
+output_avg_file <- "./uci_har_dataset_averages.csv"
 
 ## libraries used
 library(dplyr)
@@ -58,3 +59,7 @@ names(merged_set) <- col_names
 
 ## save data to output file
 write.csv(merged_set, file=output_file)
+
+## create a second, independent tidy data set with the average of each variable for each activity and each subject
+merged_avg <- tbl_df(merged_set) %>% group_by(subject, activity) %>% summarize_each(funs(mean))
+write.csv(merged_tbl, file=output_avg_file)
